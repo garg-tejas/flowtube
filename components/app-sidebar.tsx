@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Play, Home, BookOpen, Trophy, Settings, Plus, LogOut, Menu, X, ChevronLeft } from "lucide-react"
@@ -20,13 +20,27 @@ export function AppSidebar() {
     const pathname = usePathname()
     const [isOpen, setIsOpen] = useState(true)
     const [isCollapsed, setIsCollapsed] = useState(false)
+    const [mounted, setMounted] = useState(false)
     const supabase = createClient()
+
+    useEffect(() => {
+        setMounted(true)
+        const saved = localStorage.getItem("sidebar-collapsed")
+        if (saved) setIsCollapsed(JSON.parse(saved))
+    }, [])
+
+    const handleCollapse = (value: boolean) => {
+        setIsCollapsed(value)
+        localStorage.setItem("sidebar-collapsed", JSON.stringify(value))
+    }
 
     const handleLogout = async () => {
         await supabase.auth.signOut()
     }
 
     const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/")
+
+    if (!mounted) return null
 
     return (
         <>
@@ -51,7 +65,6 @@ export function AppSidebar() {
                 )}
             >
                 <div className="flex flex-col h-full">
-                    {/* Logo */}
                     {/* Logo & Collapse */}
                     <div className="p-4 border-b border-border flex items-center justify-between gap-2">
                         <Link href="/feed" className="flex items-center gap-3 group flex-1 min-w-0">
@@ -66,7 +79,7 @@ export function AppSidebar() {
                             variant="ghost"
                             size="icon"
                             className="hidden md:flex flex-shrink-0 hover:bg-accent"
-                            onClick={() => setIsCollapsed(!isCollapsed)}
+                            onClick={() => handleCollapse(!isCollapsed)}
                             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                         >
                             <ChevronLeft

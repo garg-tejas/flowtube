@@ -1,11 +1,11 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { Search, User } from "lucide-react"
+import { Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GlobalSearch } from "@/components/global-search"
 import { NotificationsPopover } from "@/components/notifications-popover"
-import { useRouter } from "next/navigation"
+import { UserProfilePopover } from "@/components/user-profile-popover"
 
 interface AppHeaderProps {
     title?: string
@@ -54,13 +54,7 @@ export function AppHeader({ title }: AppHeaderProps) {
                         <Search className="h-5 w-5" />
                     </Button>
                     <NotificationsPopover />
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="hover:bg-accent/10"
-                    >
-                        <User className="h-5 w-5" />
-                    </Button>
+                    <UserProfilePopover />
                 </div>
             </div>
         </header>

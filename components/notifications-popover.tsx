@@ -1,64 +1,62 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Bell, X, CheckCircle2, AlertCircle, Info, Zap } from "lucide-react"
+import { useState } from "react"
+import { Bell, X, CheckCircle2, AlertCircle, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import useSWR, { mutate } from "swr"
 
 interface Notification {
     id: string
     type: "success" | "error" | "info"
     title: string
     message: string
-    timestamp: Date
+    created_at: string
     read: boolean
 }
 
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
+
 export function NotificationsPopover() {
-    const [notifications, setNotifications] = useState<Notification[]>([
-        {
-            id: "1",
-            type: "success",
-            title: "Video Completed",
-            message: "You've completed 'React Fundamentals'",
-            timestamp: new Date(Date.now() - 5 * 60000),
-            read: false,
-        },
-        {
-            id: "2",
-            type: "info",
-            title: "Learning Goal Reached",
-            message: "You've watched 2 hours this week",
-            timestamp: new Date(Date.now() - 30 * 60000),
-            read: false,
-        },
-    ])
     const [open, setOpen] = useState(false)
+    const { data: notifications = [], isLoading } = useSWR<Notification[]>(
+        open ? "/api/notifications" : null,
+        fetcher,
+        { revalidateOnFocus: false }
+    )
 
     const unreadCount = notifications.filter((n) => !n.read).length
 
-    const handleMarkAsRead = (id: string) => {
-        setNotifications((prev) =>
-            prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    const handleMarkAsRead = async (id: string) => {
+        await fetch("/api/notifications", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        })
+        mutate("/api/notifications")
+    }
+
+    const handleMarkAllAsRead = async () => {
+        await Promise.all(
+            notifications
+                .filter((n) => !n.read)
+                .map((n) => handleMarkAsRead(n.id))
         )
     }
 
-    const handleMarkAllAsRead = () => {
-        setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))
+    const handleDeleteNotification = async (id: string) => {
+        await fetch("/api/notifications", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        })
+        mutate("/api/notifications")
     }
 
-    const handleDeleteNotification = (id: string) => {
-        setNotifications((prev) => prev.filter((n) => n.id !== id))
-    }
-
-    const handleClearAll = () => {
-        setNotifications([])
+    const handleClearAll = async () => {
+        await Promise.all(notifications.map((n) => handleDeleteNotification(n.id)))
     }
 
     const getIcon = (type: string) => {
@@ -74,7 +72,8 @@ export function NotificationsPopover() {
         }
     }
 
-    const formatTime = (date: Date) => {
+    const formatTime = (dateString: string) => {
+        const date = new Date(dateString)
         const now = new Date()
         const diffMs = now.getTime() - date.getTime()
         const diffMins = Math.floor(diffMs / 60000)
@@ -85,7 +84,7 @@ export function NotificationsPopover() {
         if (diffMins < 60) return `${diffMins}m ago`
         if (diffHours < 24) return `${diffHours}h ago`
         if (diffDays < 7) return `${diffDays}d ago`
-        return date.toLocaleDateString()
+        return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
     }
 
     return (
@@ -184,7 +183,7 @@ export function NotificationsPopover() {
                                                         {notification.message}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground/50 mt-2 font-medium">
-                                                        {formatTime(notification.timestamp)}
+                                                        {formatTime(notification.created_at)}
                                                     </p>
                                                 </div>
                                                 <button
