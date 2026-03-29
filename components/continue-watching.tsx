@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
 import { Play, Clock } from "lucide-react"
+import { memo } from "react"
 
 type Video = {
   id: string
@@ -44,7 +45,7 @@ const formatTimeAgo = (date: string) => {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-export function ContinueWatchingSection({ videos }: ContinueWatchingSectionProps) {
+function ContinueWatchingSectionComponent({ videos }: ContinueWatchingSectionProps) {
   if (videos.length === 0) return null
 
   return (
@@ -115,3 +116,5 @@ export function ContinueWatchingSection({ videos }: ContinueWatchingSectionProps
     </section>
   )
 }
+
+export const ContinueWatchingSection = memo(ContinueWatchingSectionComponent)

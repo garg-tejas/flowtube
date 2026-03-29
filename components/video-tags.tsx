@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,7 +12,7 @@ type VideoTagsProps = {
   videoId: string
 }
 
-export function VideoTags({ videoId }: VideoTagsProps) {
+function VideoTagsComponent({ videoId }: VideoTagsProps) {
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState("")
   const supabase = createClient()
@@ -122,3 +122,5 @@ export function VideoTags({ videoId }: VideoTagsProps) {
     </Card>
   )
 }
+
+export const VideoTags = memo(VideoTagsComponent)

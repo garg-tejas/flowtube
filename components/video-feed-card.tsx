@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Play, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
+import { memo } from "react"
 import { cn } from "@/lib/utils"
 
 type Video = {
@@ -31,7 +32,7 @@ type VideoFeedCardProps = {
   progress: WatchProgress
 }
 
-export function VideoFeedCard({ video, playlist, progress }: VideoFeedCardProps) {
+function VideoFeedCardComponent({ video, playlist, progress }: VideoFeedCardProps) {
   const progressPercentage = progress && video.duration ? (progress.progress_seconds / video.duration) * 100 : 0
   const isCompleted = progress?.completed
   const isInProgress = progress && !isCompleted && progressPercentage > 0
@@ -130,3 +131,5 @@ export function VideoFeedCard({ video, playlist, progress }: VideoFeedCardProps)
     </Card>
   )
 }
+
+export const VideoFeedCard = memo(VideoFeedCardComponent)

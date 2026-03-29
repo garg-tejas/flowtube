@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -30,7 +30,7 @@ type Bookmark = {
   description: string | null
 }
 
-export function BookmarksPanel({ videoId, currentTime, onSeekTo }: BookmarksPanelProps) {
+function BookmarksPanelComponent({ videoId, currentTime, onSeekTo }: BookmarksPanelProps) {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState("")
@@ -183,3 +183,5 @@ export function BookmarksPanel({ videoId, currentTime, onSeekTo }: BookmarksPane
     </Card>
   )
 }
+
+export const BookmarksPanel = memo(BookmarksPanelComponent)

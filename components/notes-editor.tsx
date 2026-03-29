@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, memo } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,7 +23,7 @@ type NotesEditorProps = {
   userId: string
 }
 
-export function NotesEditor({ videoId, playlistId, userId }: NotesEditorProps) {
+function NotesEditorComponent({ videoId, playlistId, userId }: NotesEditorProps) {
   const [content, setContent] = useState("")
   const [noteId, setNoteId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -299,3 +299,5 @@ export function NotesEditor({ videoId, playlistId, userId }: NotesEditorProps) {
     </Card>
   )
 }
+
+export const NotesEditor = memo(NotesEditorComponent)
