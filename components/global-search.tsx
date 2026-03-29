@@ -39,7 +39,7 @@ export function GlobalSearch() {
       ) {
         return
       }
-      
+
       if (e.key === "/" || (e.key === "k" && (e.metaKey || e.ctrlKey))) {
         e.preventDefault()
         setOpen((open) => !open)
@@ -58,74 +58,80 @@ export function GlobalSearch() {
 
     setIsLoading(true)
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        setIsLoading(false)
+        return
+      }
+
+      const searchResults: SearchResult[] = []
+
+      // Search videos
+      const { data: videos, error: videosError } = await supabase
+        .from("videos")
+        .select(`
+          id,
+          title,
+          thumbnail_url,
+          playlist:playlists!inner(user_id, title)
+        `)
+        .eq("playlist.user_id", user.id)
+        .ilike("title", `%${searchQuery}%`)
+        .limit(5)
+
+      videos?.forEach(video => {
+        searchResults.push({
+          type: "video",
+          id: video.id,
+          title: video.title,
+          subtitle: (video.playlist as any)?.title,
+          thumbnail: video.thumbnail_url || undefined,
+        })
+      })
+
+      // Search playlists
+      const { data: playlists, error: playlistsError } = await supabase
+        .from("playlists")
+        .select("id, title, thumbnail_url, category")
+        .eq("user_id", user.id)
+        .ilike("title", `%${searchQuery}%`)
+        .limit(5)
+
+      playlists?.forEach(playlist => {
+        searchResults.push({
+          type: "playlist",
+          id: playlist.id,
+          title: playlist.title,
+          subtitle: playlist.category || "Playlist",
+          thumbnail: playlist.thumbnail_url || undefined,
+        })
+      })
+
+      // Search learning paths
+      const { data: learningPaths, error: pathsError } = await supabase
+        .from("learning_paths")
+        .select("id, title, description")
+        .eq("user_id", user.id)
+        .ilike("title", `%${searchQuery}%`)
+        .limit(3)
+
+      learningPaths?.forEach(path => {
+        searchResults.push({
+          type: "learning_path",
+          id: path.id,
+          title: path.title,
+          subtitle: path.description || "Learning Path",
+        })
+      })
+
+      setResults(searchResults)
+    } catch (error) {
+      console.error("Search error:", error)
+      setResults([])
+    } finally {
       setIsLoading(false)
-      return
     }
-
-    const searchResults: SearchResult[] = []
-
-    // Search videos
-    const { data: videos } = await supabase
-      .from("videos")
-      .select(`
-        id,
-        title,
-        thumbnail_url,
-        playlist:playlists!inner(user_id, title)
-      `)
-      .eq("playlist.user_id", user.id)
-      .ilike("title", `%${searchQuery}%`)
-      .limit(5)
-
-    videos?.forEach(video => {
-      searchResults.push({
-        type: "video",
-        id: video.id,
-        title: video.title,
-        subtitle: (video.playlist as any)?.title,
-        thumbnail: video.thumbnail_url || undefined,
-      })
-    })
-
-    // Search playlists
-    const { data: playlists } = await supabase
-      .from("playlists")
-      .select("id, title, thumbnail_url, category")
-      .eq("user_id", user.id)
-      .ilike("title", `%${searchQuery}%`)
-      .limit(5)
-
-    playlists?.forEach(playlist => {
-      searchResults.push({
-        type: "playlist",
-        id: playlist.id,
-        title: playlist.title,
-        subtitle: playlist.category || "Playlist",
-        thumbnail: playlist.thumbnail_url || undefined,
-      })
-    })
-
-    // Search learning paths
-    const { data: learningPaths } = await supabase
-      .from("learning_paths")
-      .select("id, title, description")
-      .eq("user_id", user.id)
-      .ilike("title", `%${searchQuery}%`)
-      .limit(3)
-
-    learningPaths?.forEach(path => {
-      searchResults.push({
-        type: "learning_path",
-        id: path.id,
-        title: path.title,
-        subtitle: path.description || "Learning Path",
-      })
-    })
-
-    setResults(searchResults)
-    setIsLoading(false)
   }, [supabase])
 
   useEffect(() => {
@@ -140,7 +146,7 @@ export function GlobalSearch() {
     // Save to recent searches
     const recent = [result, ...recentSearches.filter(r => r.id !== result.id)].slice(0, 5)
     setRecentSearches(recent)
-    
+
     setOpen(false)
     setQuery("")
 

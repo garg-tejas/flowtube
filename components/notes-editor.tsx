@@ -128,7 +128,7 @@ function NotesEditorComponent({ videoId, playlistId, userId }: NotesEditorProps)
 
     // Parse and render content
     const lines = content.split("\n")
-    
+
     for (const line of lines) {
       // Check if we need a new page
       if (yPosition > pageHeight - margin) {

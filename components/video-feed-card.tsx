@@ -52,7 +52,6 @@ function VideoFeedCardComponent({ video, playlist, progress }: VideoFeedCardProp
             alt={video.title}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
-            decode="async"
             draggable={false}
           />
 

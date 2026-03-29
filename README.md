@@ -15,7 +15,9 @@ A YouTube playlist manager with progress tracking, notes, and learning paths. Wa
 - **Video Tags** - Custom tags for organization
 - **Learning Paths** - Combine playlists into structured curricula
 - **Achievements** - 21 badges for milestones and streaks
-- **Global Search** - Press `/` to search videos, playlists, paths
+- **Global Search** - Press `/` to search videos, playlists, paths with real-time results
+- **Real Notifications** - Database-backed notification system
+- **User Profile** - Account settings and management
 - **Dark/Light Mode** - Theme toggle
 
 ## Quick Start
