@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+/* Removed @import "tw-animate-css" which was causing the slide-out-to-ri error */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Premium dark theme with professional blue accents */
+  --background: oklch(0.09 0.005 250);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.12 0.005 250);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.12 0.005 250);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.65 0.2 280);
+  /* Professional learning blue */
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.16 0.005 250);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.16 0.005 250);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.75 0.18 270);
+  /* Lighter blue for hover states */
+  --accent-foreground: oklch(0.09 0.005 250);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.2 0.005 250);
+  --input: oklch(0.16 0.005 250);
+  --ring: oklch(0.65 0.2 280);
+  /* Blue focus ring */
+  --chart-1: oklch(0.65 0.2 280);
+  /* Blue */
+  --chart-2: oklch(0.65 0.2 155);
+  /* Green - success */
+  --chart-3: oklch(0.72 0.18 25);
+  /* Orange - warning */
+  --chart-4: oklch(0.68 0.14 220);
+  /* Light blue */
+  --chart-5: oklch(0.6 0.16 240);
+  /* Darker blue */
+  --radius: 0.625rem;
+  --sidebar: oklch(0.11 0.005 250);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.65 0.2 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.75 0.18 270);
+  --sidebar-accent-foreground: oklch(0.09 0.005 250);
+  --sidebar-border: oklch(0.2 0.005 250);
+  --sidebar-ring: oklch(0.65 0.2 280);
+}
+
+.dark {
+  --background: oklch(0.09 0.005 250);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.12 0.005 250);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.12 0.005 250);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.65 0.2 280);
+  /* Professional learning blue */
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.16 0.005 250);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.16 0.005 250);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.75 0.18 270);
+  /* Lighter blue for hover states */
+  --accent-foreground: oklch(0.09 0.005 250);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.2 0.005 250);
+  --input: oklch(0.16 0.005 250);
+  --ring: oklch(0.65 0.2 280);
+  /* Blue focus ring */
+  --chart-1: oklch(0.65 0.2 280);
+  /* Blue */
+  --chart-2: oklch(0.65 0.2 155);
+  /* Green - success */
+  --chart-3: oklch(0.72 0.18 25);
+  /* Orange - warning */
+  --chart-4: oklch(0.68 0.14 220);
+  /* Light blue */
+  --chart-5: oklch(0.6 0.16 240);
+  /* Darker blue */
+  --sidebar: oklch(0.11 0.005 250);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.65 0.2 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.75 0.18 270);
+  --sidebar-accent-foreground: oklch(0.09 0.005 250);
+  --sidebar-border: oklch(0.2 0.005 250);
+  --sidebar-ring: oklch(0.65 0.2 280);
+}
+
+@theme inline {
+  --font-sans: "Inter", "Inter Fallback", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Premium animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
+}
+
+.animate-blur-in {
+  animation: blur-in 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+  background-size: 200% 100%;
+  animation: gradient-x 15s ease infinite;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Staggered delays */
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(to right, #fff 20%, #71717a 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle grid background */
+.bg-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Radial glow */
+.glow-top {
+  /* Removed purple glow, using neutral white glow instead */
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.03), transparent);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Shine effect on hover */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.shine:hover::before {
+  left: 100%;
+}
+
+/* Border gradient */
+.border-gradient {
+  position: relative;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 50%) border-box;
+  border: 1px solid transparent;
+}
+
+/* Gradient backgrounds */
+.gradient-blue-accent {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.gradient-button {
+  background: linear-gradient(135deg, var(--primary), oklch(0.68 0.18 290));
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+}
+
+/* Gradient text */
+.text-gradient-blue {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card gradients */
+.card-gradient-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(101, 127, 255, 0.1), transparent);
+  pointer-events: none;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Improved spacing utilities */
+  h1 {
+    @apply text-4xl font-bold leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-bold leading-snug;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
+
+  /* Improved card styling */
+  .card {
+    @apply rounded-lg border border-border transition-all duration-300;
+  }
+
+  .card:hover {
+    @apply border-primary/20;
+  }
+}
