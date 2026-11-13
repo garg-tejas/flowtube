@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { Play, Trophy, Lock, Star, Award, CheckCircle, Flame, Clock, BookOpen, Crown, Moon, Sun, Map, GraduationCap, Folder, FolderOpen, Library, Timer, Hourglass } from "lucide-react"
+import { Play, Trophy, Lock, Star, Award, CheckCircle, Flame, Clock, BookOpen, Crown, Moon, Sun, Map as MapIcon, GraduationCap, Folder, FolderOpen, Library, Timer, Hourglass } from "lucide-react"
 import { GlobalSearch, SearchButton } from "@/components/global-search"
 import { KeyboardShortcuts } from "@/components/keyboard-shortcuts"
 import { ACHIEVEMENTS, RARITY_COLORS, RARITY_TEXT_COLORS, type AchievementType } from "@/lib/achievements"
@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/empty-state"
 import { AuthenticatedLayout } from "@/components/authenticated-layout"
 
 const iconMap: Record<string, any> = {
-  Play, Star, Award, CheckCircle, Flame, Clock, BookOpen, Crown, Moon, Sun, Map,
+  Play, Star, Award, CheckCircle, Flame, Clock, BookOpen, Crown, Moon, Sun, Map: MapIcon,
   GraduationCap, Folder, FolderOpen, Library, Timer, Hourglass, Trophy,
   ListVideo: BookOpen,
 }

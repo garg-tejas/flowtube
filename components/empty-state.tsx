@@ -24,7 +24,13 @@ type EmptyStateProps = {
   }
 }
 
-const emptyStateConfig = {
+const emptyStateConfig: Record<EmptyStateProps["type"], {
+  icon: typeof Play
+  title: string
+  description: string
+  tips: string[]
+  action?: EmptyStateProps["action"]
+}> = {
   feed: {
     icon: Play,
     title: "Your feed is empty",

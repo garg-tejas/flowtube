@@ -9,7 +9,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -40,7 +39,7 @@
     "@supabase/ssr": "0.7.0",
     "@supabase/supabase-js": "2.99.2",
     "@vercel/analytics": "1.3.1",
-    "autoprefixer": "^10.4.20",
+    "autoprefixer": "^10.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
@@ -49,31 +48,38 @@
     "input-otp": "1.4.1",
     "jspdf": "4.2.1",
     "lucide-react": "^0.454.0",
-    "next": "15.5.9",
+    "next": "15.5.28",
     "next-themes": "^0.4.6",
-    "react": "19.1.0",
+    "react": "19.3.1",
     "react-day-picker": "9.8.0",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.60.0",
+    "react-dom": "19.3.1",
+    "react-hook-form": "^7.91.0",
     "react-markdown": "10.1.0",
-    "react-resizable-panels": "^2.1.7",
+    "react-resizable-panels": "^2.1.9",
     "recharts": "2.15.4",
     "remark-gfm": "4.0.1",
+    "sharp": "0.35.5",
     "sonner": "^1.7.4",
     "swr": "2.3.6",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.7.0",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^0.9.9",
-    "zod": "3.25.76"
+    "vaul": "^0.9.9"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.9",
-    "@types/node": "^22",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8.5",
-    "tailwindcss": "^4.1.9",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^4.3.3",
     "tw-animate-css": "1.3.3",
-    "typescript": "^5"
-  }
+    "typescript": "^5.9.3",
+    "eslint": "9.39.5",
+    "eslint-config-next": "15.5.28",
+    "@eslint/eslintrc": "3.3.7"
+  },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
+  },
+  "packageManager": "pnpm@11.2.2"
 }
