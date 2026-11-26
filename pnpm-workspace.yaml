@@ -1,4 +1,7 @@
 packages:
   - .
+allowBuilds:
+  core-js: false
+  unrs-resolver: false
 overrides:
   "next>postcss": 8.5.31
